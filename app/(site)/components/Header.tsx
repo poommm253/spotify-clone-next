@@ -3,9 +3,12 @@
 import { useRouter } from "next/navigation";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import { GoBell, GoPeople } from "react-icons/go";
-import { MdAccountCircle } from "react-icons/md";
+import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 
 export default function Header() {
+  const { data: session } = useSession({ required: true });
+
   const router = useRouter();
 
   return (
@@ -33,8 +36,17 @@ export default function Header() {
           <GoPeople className="p-2" size={35}></GoPeople>
         </button>
 
-        <button className="items-center justify-center transition bg-black rounded-full hover:opacity-75">
-          <MdAccountCircle className="p-1" size={35}></MdAccountCircle>
+        <button
+          onClick={() => signOut()}
+          className="items-center justify-center transition bg-black rounded-full hover:opacity-75"
+        >
+          <Image
+            className="rounded-full p-1"
+            src={session?.user!.image!}
+            alt="Profile Picture"
+            width={35}
+            height={35}
+          />
         </button>
       </div>
     </div>

@@ -1,5 +1,4 @@
 import Header from "@/app/(site)/components/Header";
-import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import Featured from "./components/Featured";
 import RecentlyPlayed from "./components/RecentlyPlayed";
 
