@@ -1,5 +1,40 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+import { useMemo } from "react";
+import { HiHome } from "react-icons/hi";
+import { BiSearch } from "react-icons/bi";
 import Link from "next/link";
 import { IconType } from "react-icons";
+
+export default function SidebarMenu() {
+  const pathname = usePathname();
+
+  const routes = useMemo(
+    () => [
+      {
+        icon: HiHome,
+        label: "Home",
+        active: pathname !== "/search",
+        href: "/",
+      },
+      {
+        icon: BiSearch,
+        label: "Search",
+        active: pathname === "/search",
+        href: "/search",
+      },
+    ],
+    [pathname]
+  );
+  return (
+    <div className="card">
+      {routes.map((route) => {
+        return <SidebarItem key={route.label} {...route} />;
+      })}
+    </div>
+  );
+}
 
 interface SidebarItemProps {
   icon: IconType;
@@ -36,5 +71,3 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
     </Link>
   );
 };
-
-export default SidebarItem;

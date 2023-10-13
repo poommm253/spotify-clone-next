@@ -1,12 +1,6 @@
-"use client";
-
-import { usePathname } from "next/navigation";
-import { useMemo } from "react";
-import { HiHome } from "react-icons/hi";
-import { BiSearch } from "react-icons/bi";
 import { TbPlaylist } from "react-icons/tb";
-import SidebarItem from "./SidebarItem";
 import SidebarLibList from "./SidebarLibList";
+import SidebarMenu from "./SidebarMenu";
 
 interface SidebarProps {
   children: React.ReactNode;
@@ -14,36 +8,12 @@ interface SidebarProps {
 
 // Passing server component into a client component is {children}
 const Sidebar: React.FC<SidebarProps> = ({ children }) => {
-  const pathname = usePathname();
-
-  const routes = useMemo(
-    () => [
-      {
-        icon: HiHome,
-        label: "Home",
-        active: pathname !== "/search",
-        href: "/",
-      },
-      {
-        icon: BiSearch,
-        label: "Search",
-        active: pathname === "/search",
-        href: "/search",
-      },
-    ],
-    [pathname]
-  );
-
   let samplePlaylist = [{ title: "Playlist 1" }, { title: "Playlist 2" }];
 
   return (
     <div className="flex h-full">
       <div className="sidebar">
-        <div className="card">
-          {routes.map((route) => {
-            return <SidebarItem key={route.label} {...route} />;
-          })}
-        </div>
+        <SidebarMenu />
         <div className="h-full p-3 overflow-y-auto card">
           <div className="flex flex-row p-3 space-x-4 text-lg font-bold text-neutral-400">
             <TbPlaylist className="text-neutral-400" size={26} />
