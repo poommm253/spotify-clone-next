@@ -22,6 +22,15 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "app/login/page.jsx",
+    "utils/oauth_pkce.js",
+    "app/api/auth/[...nextauth]/route.js",
+    "components/SidebarLibList.jsx"
+  ],
   "exclude": ["node_modules"]
 }
