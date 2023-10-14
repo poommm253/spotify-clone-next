@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useSpotify from "../app/hooks/useSpotify";
 import { useSession } from "next-auth/react";
 import { allPlaylistState, playlistIdState } from "@/atoms/playlistAtom";
@@ -32,12 +32,10 @@ const SidebarLib = () => {
     if (api.getAccessToken()) {
       api.getUserPlaylists().then((data) => setPlaylists(data.body.items));
     }
-
-    console.log(playlists);
   }, [session, api]);
 
   return (
-    <div className="space-y-3 h-min md:p-5">
+    <div className="space-y-3 h-min md:p-5 p-3">
       {playlists?.map((item) => {
         return (
           <button
@@ -46,7 +44,7 @@ const SidebarLib = () => {
             className="flex flex-row justify-center md:justify-normal items-center md:space-x-3"
           >
             <img
-              className="h-12 w-12 rounded-md"
+              className="h-12 w-12 rounded-md justify-center"
               src={item.images[0].url}
               alt="Playlist image"
             ></img>

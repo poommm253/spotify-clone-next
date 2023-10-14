@@ -12,7 +12,7 @@ export default function Header() {
   const router = useRouter();
 
   return (
-    <div className="flex flex-row justify-between w-full">
+    <div className="sticky top-0 flex flex-row justify-between w-full">
       <div className="flex flex-row px-8 py-5 space-x-2">
         <button
           className="items-center justify-center transition bg-black rounded-full hover:opacity-75"
