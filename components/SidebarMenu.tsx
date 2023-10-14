@@ -6,6 +6,8 @@ import { HiHome } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
 import Link from "next/link";
 import { IconType } from "react-icons";
+import { useRecoilState } from "recoil";
+import { playlistIdState } from "@/atoms/playlistAtom";
 
 export default function SidebarMenu() {
   const pathname = usePathname();
@@ -27,6 +29,7 @@ export default function SidebarMenu() {
     ],
     [pathname]
   );
+
   return (
     <div className="card">
       {routes.map((route) => {
@@ -49,9 +52,13 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   active,
   href,
 }) => {
+  const [selectedPlaylistId, setSelectedPlaylistId] =
+    useRecoilState(playlistIdState);
+
   return (
     <Link
       className="flex flex-row p-3 m-3 text-lg font-bold md:space-x-4 text-md text-neutral-400 hover:text-white"
+      onClick={() => setSelectedPlaylistId(null)}
       href={href}
     >
       <Icon

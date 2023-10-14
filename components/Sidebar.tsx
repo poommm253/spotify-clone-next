@@ -8,14 +8,12 @@ interface SidebarProps {
 
 // Passing server component into a client component is {children}
 const Sidebar: React.FC<SidebarProps> = ({ children }) => {
-  let samplePlaylist = [{ title: "Playlist 1" }, { title: "Playlist 2" }];
-
   return (
-    <div className="flex h-full">
-      <div className="sidebar">
+    <div className="flex h-full ">
+      <div className="sidebar md:min-w-xl">
         <SidebarMenu />
         <div className="h-full overflow-y-auto card no-scrollbar">
-          <div className="bg-neutral-900 sticky p-5 top-0 z-10 flex flex-row p-3 space-x-4 text-lg font-bold text-neutral-400">
+          <div className="bg-neutral-900 sticky p-5 top-0 z-10 flex flex-row space-x-4 text-lg font-bold text-neutral-400">
             <TbPlaylist className="text-neutral-400" size={26} />
             <h2 className="hidden md:flex">Your Library</h2>
           </div>
