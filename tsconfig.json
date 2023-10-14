@@ -30,7 +30,10 @@
     "app/login/page.jsx",
     "utils/oauth_pkce.js",
     "app/api/auth/[...nextauth]/route.js",
-    "components/SidebarLibList.jsx"
+    "components/SidebarLibList.jsx",
+    "app/(site)/components/RecentlyPlayed.jsx",
+    "app/(site)/page.jsx",
+    "app/(site)/page.jsx"
   ],
   "exclude": ["node_modules"]
 }

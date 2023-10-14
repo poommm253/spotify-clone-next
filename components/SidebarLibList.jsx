@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import useSpotify from "../app/hooks/useSpotify";
 import { useSession } from "next-auth/react";
-import { playlistIdState } from "@/atoms/playlistAtom";
+import { allPlaylistState, playlistIdState } from "@/atoms/playlistAtom";
 import { useRecoilState } from "recoil";
 
 // async function fetchUserPlaylist(userId, accessToken) {
@@ -24,7 +24,7 @@ import { useRecoilState } from "recoil";
 const SidebarLib = () => {
   const api = useSpotify();
   const { data: session } = useSession();
-  const [playlists, setPlaylists] = useState([]);
+  const [playlists, setPlaylists] = useRecoilState(allPlaylistState);
   const [selectedPlaylistId, setSelectedPlaylistId] =
     useRecoilState(playlistIdState);
 
@@ -38,9 +38,10 @@ const SidebarLib = () => {
 
   return (
     <div className="space-y-3 h-min md:p-5">
-      {playlists.map((item) => {
+      {playlists?.map((item) => {
         return (
           <button
+            key={item.name}
             onClick={() => setSelectedPlaylistId(item.id)}
             className="flex flex-row justify-center md:justify-normal items-center md:space-x-3"
           >

@@ -21,7 +21,6 @@ export default function Home() {
     if (selectedPlaylistId) {
       console.log("fetching tracks");
       console.log(selectedPlaylistId);
-      api.getAccessToken();
       api
         .getPlaylist(selectedPlaylistId)
         .then((data) => {
