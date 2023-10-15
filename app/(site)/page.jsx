@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import useSpotify from "../hooks/useSpotify";
 import Link from "next/link";
 import FeaturedPlaylist from "./components/FeaturedPlaylist";
+import TopTracks from "./components/TopTracks";
 
 export default function Home() {
   const selectedPlaylistId = useRecoilValue(playlistIdState);
@@ -43,6 +44,8 @@ export default function Home() {
         <Featured />
         <h2 className="py-5 mx-8 text-3xl font-bold">Good Evening</h2>
         <RecentlyPlayed />
+        <h2 className="pt-10 pb-5 mx-8 text-3xl font-bold">Top Tracks</h2>
+        <TopTracks />
         <h2 className="pt-10 pb-5 mx-8 text-3xl font-bold">Made For You</h2>
         <FeaturedPlaylist />
       </div>
@@ -76,15 +79,62 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="py-10 px-5">
-            <table className="table-auto">
-              <thead>
-                <tr>
-                  <th>Song</th>
-                  <th>Artist</th>
-                  <th>Year</th>
+
+          <div className="py-10 px-10">
+            <table className="table-fixed w-full">
+              <thead className="border-b-[1.5px] border-neutral-700  text-md font-light text-neutral-400 text-left">
+                <tr className="hover:bg-transparent">
+                  <th>#</th>
+                  <th>Title</th>
+                  <th>Album</th>
+                  <th>Duration</th>
                 </tr>
               </thead>
+              <tbody>
+                {playlist.tracks.items.map((song, index) => {
+                  return (
+                    <tr>
+                      <td>{index + 1}</td>
+                      <td>
+                        <div className="flex flex-row space-x-3">
+                          <img
+                            src={song.track.album.images[0].url}
+                            className="w-10 h-10 rounded-sm"
+                          ></img>
+                          <div className="flex flex-col">
+                            <p>{song.track.name}</p>
+                            <div className="flex flex-row">
+                              {song.track.album.artists.map((artist, index) => {
+                                return (
+                                  <div className=" flex flex-row">
+                                    <p>{artist.name}</p>
+                                    {index + 1 !==
+                                      song.track.album.artists.length && (
+                                      <span>, &nbsp</span>
+                                    )}
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>1961</td> <td>1961</td>
+                    </tr>
+                  );
+                })}
+
+                <tr>
+                  <td>2</td>
+                  <td>The Eagles</td>
+                  <td>1972</td> <td>1961</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Earth, Wind, and Fire</td>
+                  <td>1975</td> <td>1961</td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>

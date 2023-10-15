@@ -32,3 +32,15 @@ body,
     }
   }
 }
+
+td {
+  @apply py-5;
+}
+
+tr {
+  @apply hover:bg-neutral-700;
+}
+
+th {
+  @apply pb-2;
+}
