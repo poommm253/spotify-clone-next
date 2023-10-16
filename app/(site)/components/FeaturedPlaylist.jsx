@@ -26,6 +26,7 @@ export default function FeaturedPlaylist() {
             imgUrl={featured.images[0].url}
             name={featured.name}
             description={featured.description}
+            concat={true}
           />
         );
       })}
