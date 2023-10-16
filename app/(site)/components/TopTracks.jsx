@@ -4,10 +4,12 @@ import { useSession } from "next-auth/react";
 import { fetchWebApi } from "../../../utils/spotify";
 import { useCallback, useEffect, useState } from "react";
 import TrackItem from "./TrackItem";
+import { useRecoilState } from "recoil";
+import { topTrackState } from "@/atoms/playlistAtom";
 
 export default function TopTracks() {
   const { data: session } = useSession();
-  const [topTracks, setTopTracks] = useState([]);
+  const [topTracks, setTopTracks] = useRecoilState(topTrackState);
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchTopTracks = useCallback(async (accessToken) => {

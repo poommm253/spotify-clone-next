@@ -38,7 +38,7 @@ td {
 }
 
 tr {
-  @apply hover:bg-neutral-700;
+  @apply hover:bg-neutral-700 hover:rounded-lg;
 }
 
 th {

@@ -10,6 +10,10 @@ import useSpotify from "../hooks/useSpotify";
 import Link from "next/link";
 import FeaturedPlaylist from "./components/FeaturedPlaylist";
 import TopTracks from "./components/TopTracks";
+import Recommendations from "./components/Recommendations";
+import { BsFillPlayFill, BsFillPlayCircleFill } from "react-icons/bs";
+import { AiFillHeart } from "react-icons/ai";
+import { FiMoreHorizontal } from "react-icons/fi";
 
 export default function Home() {
   const selectedPlaylistId = useRecoilValue(playlistIdState);
@@ -46,6 +50,8 @@ export default function Home() {
         <RecentlyPlayed />
         <h2 className="pt-10 pb-5 mx-8 text-3xl font-bold">Top Tracks</h2>
         <TopTracks />
+        <h2 className="pt-10 pb-5 mx-8 text-3xl font-bold">Recommendations</h2>
+        <Recommendations />
         <h2 className="pt-10 pb-5 mx-8 text-3xl font-bold">Made For You</h2>
         <FeaturedPlaylist />
       </div>
@@ -54,8 +60,18 @@ export default function Home() {
     console.log(playlist);
 
     if (playlist && playlist.images && playlist.owner && !isLoading) {
+      const bgColor = [
+        "from-purple-800",
+        "from-red-800",
+        "from-yellow-800",
+        "from-blue-800",
+      ];
       return (
-        <div className="bg-gradient-to-b from-purple-800 h-1/2">
+        <div
+          className={`bg-gradient-to-b ${
+            bgColor[Math.floor(Math.random() * bgColor.length)]
+          } h-1/2`}
+        >
           <Header />
           <div className="flex flex-row items-center space-x-5 p-5">
             <img
@@ -80,23 +96,42 @@ export default function Home() {
             </div>
           </div>
 
+          <div className="items-center mx-5 space-x-5 flex flex-row text-green-400">
+            <BsFillPlayCircleFill className="cursor-pointer" size={60} />
+            <AiFillHeart className="cursor-pointer" size={40} />
+            <FiMoreHorizontal
+              className="text-neutral-400 cursor-pointer"
+              size={40}
+            />
+          </div>
+
           <div className="py-10 px-10">
-            <table className="table-fixed w-full">
+            <table className="w-full">
               <thead className="border-b-[1.5px] border-neutral-700  text-md font-light text-neutral-400 text-left">
                 <tr className="hover:bg-transparent">
-                  <th>#</th>
+                  <th className="text-center" width="50">
+                    #
+                  </th>
                   <th>Title</th>
                   <th>Album</th>
                   <th>Duration</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="rounded-lg">
                 {playlist.tracks.items.map((song, index) => {
                   return (
-                    <tr>
-                      <td>{index + 1}</td>
+                    <tr className="group relative">
+                      <td className="group-hover:hidden text-center" width="50">
+                        {index + 1}
+                      </td>
+                      <td
+                        className="absolute cursor-pointer hidden group-hover:flex justify-center items-center h-full"
+                        width="50"
+                      >
+                        <BsFillPlayFill />
+                      </td>
                       <td>
-                        <div className="flex flex-row space-x-3">
+                        <div className="flex flex-row items-center space-x-3">
                           <img
                             src={song.track.album.images[0].url}
                             className="w-10 h-10 rounded-sm"
@@ -106,7 +141,7 @@ export default function Home() {
                             <div className="flex flex-row">
                               {song.track.album.artists.map((artist, index) => {
                                 return (
-                                  <div className=" flex flex-row">
+                                  <div className=" flex flex-row text-sm text-neutral-500">
                                     <p>{artist.name}</p>
                                     {index + 1 !==
                                       song.track.album.artists.length && (
@@ -119,21 +154,13 @@ export default function Home() {
                           </div>
                         </div>
                       </td>
-                      <td>1961</td> <td>1961</td>
+                      <td>{song.track.album.name}</td>{" "}
+                      <td>
+                        {millisToMinutesAndSeconds(song.track.duration_ms)}
+                      </td>
                     </tr>
                   );
                 })}
-
-                <tr>
-                  <td>2</td>
-                  <td>The Eagles</td>
-                  <td>1972</td> <td>1961</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Earth, Wind, and Fire</td>
-                  <td>1975</td> <td>1961</td>
-                </tr>
               </tbody>
             </table>
           </div>
@@ -141,4 +168,10 @@ export default function Home() {
       );
     }
   }
+}
+
+function millisToMinutesAndSeconds(millis) {
+  var minutes = Math.floor(millis / 60000);
+  var seconds = ((millis % 60000) / 1000).toFixed(0);
+  return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
 }

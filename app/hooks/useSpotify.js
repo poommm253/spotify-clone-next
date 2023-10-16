@@ -12,9 +12,7 @@ export default function useSpotify() {
       if (session.error === "RefreshAccessTokenError") {
         signIn();
       }
-      console.log(session.user.accessToken);
       spotifyApi.setAccessToken(session.user.accessToken);
-      console.log(spotifyApi.getAccessToken());
     }
   }, [session]);
 
